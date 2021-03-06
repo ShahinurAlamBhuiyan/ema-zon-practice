@@ -3,14 +3,15 @@ import './Cart.css'
 
 const Cart = (props) => {
     const cart = props.cart;
-    console.log(cart)
+    // console.log(cart)
 
     // const total = cart.reduce((total, prd),()=> total + prd.price, 0);
 
     let total = 0;
     for (let i = 0; i < cart.length; i++) {
         const product = cart[i];
-        total = total + product.price;
+        total = total + product.price * product.quantity;
+        // console.log(product)
     }
     const tax = total / 10;
 
@@ -32,17 +33,16 @@ const Cart = (props) => {
     }
     return (
         <div className='cart'>
-            <div className="cart-header">
                 <h3>Order Summary</h3>
                 <p>Items ordered : {cart.length}</p>
-            </div>
-            <div>
                 <p><small>Product price: ${formatNumber(total)}</small></p>
                 <p><small>Shipping & Handling: ${formatNumber(shipping)}</small></p>
                 <p><small>Estimated Tax(10%): ${formatNumber(tax)}</small></p>
                 <h3 className='price'>Order Total: ${formatNumber(grandTotal)}</h3>
+                {
+                    props.children
+                }
             </div>
-        </div>
     );
 };
 
